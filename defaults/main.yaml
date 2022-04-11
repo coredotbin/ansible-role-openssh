@@ -4,7 +4,7 @@ sshd_config_path: /etc/ssh
 
 ssh_port: 22
 ssh_address_family: any
-ssh_listen_addresses: 
+ssh_listen_addresses:
   - 0.0.0.0
 
 ssh_host_key_file: /etc/ssh/ssh_host_ed25519_key
@@ -35,10 +35,10 @@ ssh_x11_forwarding: 'no'
 
 ssh_print_motd: 'no'
 
-ssh_permit_user_env: False
+ssh_permit_user_env: false
 ssh_accept_env:
   - LANG
   - 'LC_*'
 
-ssh_banner: True
+ssh_banner: true
 ssh_banner_file: /etc/issue.net
