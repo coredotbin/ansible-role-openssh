@@ -7,8 +7,6 @@ ssh_address_family: any
 ssh_listen_addresses:
   - 0.0.0.0
 
-ssh_host_key_file: /etc/ssh/ssh_host_ed25519_key
-
 ssh_allow_groups: ssh
 ssh_login_grace_time: 20
 ssh_permit_root_login: 'no'
@@ -19,6 +17,32 @@ ssh_max_sessions: 2
 ssh_pubkey_authentication: 'yes'
 
 ssh_authorized_keys_file: .ssh/authorized_keys
+
+ssh_kexalgorithms:
+  # Mozilla Modern
+  - curve25519-sha256@libssh.org
+  - ecdh-sha2-nistp521
+  - ecdh-sha2-nistp384
+  - ecdh-sha2-nistp256
+  - diffie-hellman-group-exchange-sha256
+
+ssh_ciphers:
+  # Mozilla Modern
+  - chacha20-poly1305@openssh.com
+  - aes256-gcm@openssh.com
+  - aes128-gcm@openssh.com
+  - aes256-ctr
+  - aes192-ctr
+  - aes128-ctr
+
+ssh_macs:
+  # Mozilla Modern
+  - hmac-sha2-512-etm@openssh.com
+  - hmac-sha2-256-etm@openssh.com
+  - umac-128-etm@openssh.com
+  - hmac-sha2-512
+  - hmac-sha2-256
+  - umac-128@openssh.com
 
 ssh_hostbased_authentication: 'no'
 ssh_password_authentication: 'no'
@@ -42,3 +66,5 @@ ssh_accept_env:
 
 ssh_banner: true
 ssh_banner_file: /etc/issue.net
+
+ssh_loglevel: "VERBOSE"

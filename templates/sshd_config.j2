@@ -6,7 +6,23 @@ AddressFamily {{ ssh_address_family }}
 ListenAddress {{ a }}
 {% endfor %}
 
-HostKey {{ ssh_host_key_file }}
+{% if ssh_hostkey_file is defined %}
+HostKey {{ ssh_hostkey_file }}
+{% else %}
+HostKey /etc/ssh/ssh_host_ed25519_key
+HostKey /etc/ssh/ssh_host_rsa_key
+HostKey /etc/ssh/ssh_host_ecdsa_key
+{% endif %}
+
+{% if ssh_kexalgorithms is defined %}
+KexAlgorithms {% for alg in ssh_kexalgorithms %}{{ alg }}{{ "," if not loop.last }}{% endfor %}
+{% endif %}
+{% if ssh_ciphers is defined %}
+Ciphers {% for alg in ssh_ciphers %}{{ alg }}{{ "," if not loop.last }}{% endfor %}
+{% endif %}
+{% if ssh_macs is defined %}
+MACs {% for alg in ssh_macs %}{{ alg }}{{ "," if not loop.last }}{% endfor %}
+{% endif %}
 
 AllowGroups {{ ssh_allow_groups }}
 LoginGraceTime {{ ssh_login_grace_time }}
@@ -47,8 +63,10 @@ AcceptEnv {{ e }}
 PermitUserEnvironment no
 {% endif %}
 
+LogLevel {{ ssh_loglevel }}
+
 {% if ansible_facts['os_family'] == 'RedHat' %}
-Subsystem sftp	/usr/libexec/openssh/sftp-server
+Subsystem sftp	/usr/libexec/openssh/sftp-server -f AUTHPRIV -l INFO
 {% elif ansible_facts['os_family'] == 'Debian' %}
-Subsystem sftp	/usr/lib/openssh/sftp-server
+Subsystem sftp	/usr/lib/openssh/sftp-server -f AUTHPRIV -l INFO
 {% endif %}
