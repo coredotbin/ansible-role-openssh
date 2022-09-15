@@ -1,0 +1,15 @@
+
+---
+- hosts: 127.0.0.1
+  vars_files:
+    - defaults/main.yaml
+  tasks:
+    - name: Test Jinja2 templates
+      check_mode: true
+      diff: true
+      ansible.builtin.template:
+        src: "{{ item }}"
+        dest: "/tmp/{{ item }}"
+      with_items:
+        - templates/sshd_config.j2
+        - templates/issue.net.j2
