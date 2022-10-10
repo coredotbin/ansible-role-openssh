@@ -12,9 +12,7 @@
     dest: "{{ sshd_config_path }}/sshd_config"
     mode: '0644'
   become: true
-  register: sshd_config_file
-  notify:
-    - Restart sshd
+  notify: Restart sshd
 
 - name: Write banner file
   ansible.builtin.template:
