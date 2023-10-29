@@ -1,0 +1,9 @@
+---
+
+exclude_paths:
+  - test.yaml
+
+warn_list:
+  - internal-error
+
+# vi: ft=yaml
