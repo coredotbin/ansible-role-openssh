@@ -2,14 +2,14 @@
 
 - name: Ensure destination for sshd_config exists
   ansible.builtin.file:
-    path: "{{ sshd_config_path }}"
+    path: "{{ openssh_sshd_config_path }}"
     mode: '0644'
     state: directory
 
 - name: Write sshd_config file
   ansible.builtin.template:
     src: sshd_config.j2
-    dest: "{{ sshd_config_path }}/sshd_config"
+    dest: "{{ openssh_sshd_config_path }}/sshd_config"
     mode: '0644'
   become: true
   notify: Restart sshd
@@ -17,6 +17,6 @@
 - name: Write banner file
   ansible.builtin.template:
     src: issue.net.j2
-    dest: "{{ ssh_banner_file }}"
+    dest: "{{ openssh_banner_file }}"
     mode: '0644'
   when: ssh_banner

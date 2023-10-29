@@ -6,4 +6,4 @@
     state: present
 
 - name: Create sshd_config file
-  include_tasks: template_config.yaml
+  ansible.builtin.include_tasks: template_config.yaml

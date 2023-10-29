@@ -1,72 +1,72 @@
-# {{ ansible_managed }}
+{{ ansible_managed | comment }}
 
-Port {{ ssh_port }}
-AddressFamily {{ ssh_address_family }}
-{% for a in ssh_listen_addresses %}
+Port {{ openssh_port }}
+AddressFamily {{ openssh_address_family }}
+{% for a in openssh_listen_addresses %}
 ListenAddress {{ a }}
 {% endfor %}
 
-{% if ssh_hostkey_file is defined %}
-HostKey {{ ssh_hostkey_file }}
+{% if openssh_hostkey_file is defined %}
+HostKey {{ openssh_hostkey_file }}
 {% else %}
-HostKey /etc/ssh/ssh_host_ed25519_key
-HostKey /etc/ssh/ssh_host_rsa_key
-HostKey /etc/ssh/ssh_host_ecdsa_key
+HostKey /etc/ssh/openssh_host_ecdsa_key
+HostKey /etc/ssh/openssh_host_ed25519_key
+HostKey /etc/ssh/openssh_host_rsa_key
 {% endif %}
 
-{% if ssh_kexalgorithms is defined %}
-KexAlgorithms {% for alg in ssh_kexalgorithms %}{{ alg }}{{ "," if not loop.last }}{% endfor %}
+{% if openssh_kexalgorithms is defined %}
+KexAlgorithms {% for alg in openssh_kexalgorithms %}{{ alg }}{{ "," if not loop.last }}{% endfor %}
 {% endif %}
 
-{% if ssh_ciphers is defined %}
-Ciphers {% for alg in ssh_ciphers %}{{ alg }}{{ "," if not loop.last }}{% endfor %}
+{% if openssh_ciphers is defined %}
+Ciphers {% for alg in openssh_ciphers %}{{ alg }}{{ "," if not loop.last }}{% endfor %}
 {% endif %}
 
-{% if ssh_macs is defined %}
-MACs {% for alg in ssh_macs %}{{ alg }}{{ "," if not loop.last }}{% endfor %}
+{% if openssh_macs is defined %}
+MACs {% for alg in openssh_macs %}{{ alg }}{{ "," if not loop.last }}{% endfor %}
 {% endif %}
 
 
-AllowGroups {{ ssh_allow_groups }}
-LoginGraceTime {{ ssh_login_grace_time }}
-PermitRootLogin {{ ssh_permit_root_login }}
-StrictModes {{ ssh_strict_modes }}
-MaxAuthTries {{ ssh_max_auth_tries }}
-MaxSessions {{ ssh_max_sessions }}
+AllowGroups {{ openssh_allow_groups }}
+LoginGraceTime {{ openssh_login_grace_time }}
+PermitRootLogin {{ openssh_permit_root_login }}
+StrictModes {{ openssh_strict_modes }}
+MaxAuthTries {{ openssh_max_auth_tries }}
+MaxSessions {{ openssh_max_sessions }}
 
-PubkeyAuthentication {{ ssh_pubkey_authentication }}
-AuthorizedKeysFile {{ ssh_authorized_keys_file }}
+PubkeyAuthentication {{ openssh_pubkey_authentication }}
+AuthorizedKeysFile {{ openssh_authorized_keys_file }}
 
-HostbasedAuthentication {{ ssh_hostbased_authentication }}
+HostbasedAuthentication {{ openssh_hostbased_authentication }}
 
-PasswordAuthentication {{ ssh_password_authentication }}
-PermitEmptyPasswords {{ ssh_permit_empty_passwords }}
-ChallengeResponseAuthentication {{ ssh_challenge_response_authentication }}
-KerberosAuthentication {{ ssh_kerberos_authentication }}
-GSSAPIAuthentication {{ ssh_gssapi_authentication }}
-UsePAM {{ ssh_use_pam }}
+PasswordAuthentication {{ openssh_password_authentication }}
+PermitEmptyPasswords {{ openssh_permit_empty_passwords }}
+ChallengeResponseAuthentication {{ openssh_challenge_response_authentication }}
+KerberosAuthentication {{ openssh_kerberos_authentication }}
+GSSAPIAuthentication {{ openssh_gssapi_authentication }}
+UsePAM {{ openssh_use_pam }}
 
-AllowAgentForwarding {{ ssh_allow_agent_forwarding }}
-PermitTunnel {{ ssh_permit_tunnel }}
+AllowAgentForwarding {{ openssh_allow_agent_forwarding }}
+PermitTunnel {{ openssh_permit_tunnel }}
 
-X11Forwarding {{ ssh_x11_forwarding }}
-PrintMotd {{ ssh_print_motd }}
+X11Forwarding {{ openssh_x11_forwarding }}
+PrintMotd {{ openssh_print_motd }}
 
-{% if ssh_banner == true %}
-Banner {{ ssh_banner_file }}
+{% if openssh_banner == true %}
+Banner {{ openssh_banner_file }}
 {% endif %}
 
-{% if ssh_permit_user_env == true %}
+{% if openssh_permit_user_env == true %}
 PermitUserEnvironment yes
 
-{% for e in ssh_accept_env %}
+{% for e in openssh_accept_env %}
 AcceptEnv {{ e }}
 {% endfor %}
 {% else %}
 PermitUserEnvironment no
 {% endif %}
 
-LogLevel {{ ssh_loglevel }}
+LogLevel {{ openssh_loglevel }}
 
 {% if ansible_facts['os_family'] == 'RedHat' %}
 Subsystem sftp	/usr/libexec/openssh/sftp-server -f AUTHPRIV -l INFO
