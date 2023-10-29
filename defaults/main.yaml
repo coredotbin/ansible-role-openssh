@@ -7,6 +7,11 @@ openssh_address_family: any
 openssh_listen_addresses:
   - 0.0.0.0
 
+openssh_hostkeys:
+  - /etc/ssh/ssh_host_ed25519_key
+  - /etc/ssh/ssh_host_ecdsa_key
+  - /etc/ssh/ssh_host_rsa_key
+
 openssh_allow_groups: ssh
 openssh_login_grace_time: 20
 openssh_permit_root_login: 'no'

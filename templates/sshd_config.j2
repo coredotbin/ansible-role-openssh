@@ -6,12 +6,10 @@ AddressFamily {{ openssh_address_family }}
 ListenAddress {{ a }}
 {% endfor %}
 
-{% if openssh_hostkey_file is defined %}
-HostKey {{ openssh_hostkey_file }}
-{% else %}
-HostKey /etc/ssh/openssh_host_ecdsa_key
-HostKey /etc/ssh/openssh_host_ed25519_key
-HostKey /etc/ssh/openssh_host_rsa_key
+{% if openssh_hostkeys is defined %}
+{% for hostkey in openssh_hostkeys %}
+HostKey {{ hostkey }}
+{% endfor %}
 {% endif %}
 
 {% if openssh_kexalgorithms is defined %}
