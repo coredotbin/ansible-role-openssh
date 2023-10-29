@@ -19,4 +19,4 @@
     src: issue.net.j2
     dest: "{{ openssh_banner_file }}"
     mode: '0644'
-  when: ssh_banner
+  when: openssh_banner
